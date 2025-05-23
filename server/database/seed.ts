@@ -1,4 +1,4 @@
-import { LocationData } from "@advanced-react/shared/schema/experience";
+import { LocationData } from "@meetup-app/shared/schema/experience";
 import { faker } from "@faker-js/faker";
 
 import { auth } from "../features/auth";

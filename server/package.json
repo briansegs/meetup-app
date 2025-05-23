@@ -1,5 +1,5 @@
 {
-  "name": "@advanced-react/server",
+  "name": "@meetup-app/server",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsx watch --clear-screen=false ./index.ts",
@@ -9,7 +9,7 @@
     "drizzle:seed": "tsx ./database/seed.ts"
   },
   "dependencies": {
-    "@advanced-react/shared": "workspace:*",
+    "@meetup-app/shared": "workspace:*",
     "@trpc/server": "11.0.0-rc.645",
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^11.5.0",

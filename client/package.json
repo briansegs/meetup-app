@@ -1,5 +1,5 @@
 {
-  "name": "@advanced-react/client",
+  "name": "@meetup-app/client",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -7,8 +7,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@advanced-react/server": "workspace:*",
-    "@advanced-react/shared": "workspace:*",
+    "@meetup-app/server": "workspace:*",
+    "@meetup-app/shared": "workspace:*",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.4",
