@@ -9,6 +9,7 @@ import Navbar from "./features/shared/components/Navbar";
 import { ThemeProvider } from "./features/shared/components/ThemeProvider";
 import { Toaster } from "./features/shared/components/ui/Toaster";
 import { trpc } from "./trpc";
+import { InfiniteScroll } from "./features/shared/components/InfiniteScroll";
 
 export function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -49,12 +50,23 @@ export function App() {
 }
 
 function Index() {
-  const experiencesQuery = trpc.experiences.feed.useQuery({});
+  const experiencesQuery = trpc.experiences.feed.useInfiniteQuery(
+    {},
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    },
+  );
 
   return (
-    <ExperienceList
-      experiences={experiencesQuery.data?.experiences ?? []}
-      isLoading={experiencesQuery.isLoading}
-    />
+    <InfiniteScroll onLoadMore={experiencesQuery.fetchNextPage}>
+      <ExperienceList
+        experiences={
+          experiencesQuery.data?.pages.flatMap((page) => page.experiences) ?? []
+        }
+        isLoading={
+          experiencesQuery.isLoading || experiencesQuery.isFetchingNextPage
+        }
+      />
+    </InfiniteScroll>
   );
 }
