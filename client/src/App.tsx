@@ -1,11 +1,14 @@
 import { useState } from "react";
+
+import { httpBatchLink } from "@trpc/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { env } from "./lib/utils/env";
+import { ExperienceList } from "./features/experiences/components/ExperienceList";
 import Navbar from "./features/shared/components/Navbar";
 import { ThemeProvider } from "./features/shared/components/ThemeProvider";
 import { Toaster } from "./features/shared/components/ui/Toaster";
 import { trpc } from "./trpc";
-import { httpBatchLink } from "@trpc/react-query";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { env } from "./lib/utils/env";
 
 export function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -28,19 +31,15 @@ export function App() {
             <Navbar />
             <div className="min-h-screen w-full max-w-2xl">
               <header className="mb-4 border-b border-neutral-200 p-4 dark:border-neutral-800">
-                <h1 className="text-center text-xl font-bold">
-                  Advanced Patterns React
-                </h1>
+                <h1 className="text-center text-xl font-bold">Meetup App</h1>
                 <p className="text-center text-sm text-neutral-500">
                   <b>
-                    <span className="dark:text-primary-500">Cosden</span>{" "}
-                    Solutions
+                    <span className="dark:text-primary-500">BAS</span> Solutions
                   </b>
                 </p>
               </header>
-              <div className="space-y-4 p-4">
-                <Index />
-              </div>
+
+              <Index />
             </div>
           </div>
         </ThemeProvider>
@@ -50,7 +49,12 @@ export function App() {
 }
 
 function Index() {
-  const { data } = trpc.experiences.byId.useQuery({ id: 1 });
+  const experiencesQuery = trpc.experiences.feed.useQuery({});
 
-  return <div>{data ? data.title : "No data"}</div>;
+  return (
+    <ExperienceList
+      experiences={experiencesQuery.data?.experiences ?? []}
+      isLoading={experiencesQuery.isLoading}
+    />
+  );
 }
