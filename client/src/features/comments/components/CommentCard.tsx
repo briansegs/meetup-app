@@ -9,7 +9,7 @@ export function CommentCard({ comment }: CommentCardProps) {
   return (
     <Card className="space-y-4">
       <CommentCardHeader comment={comment} />
-      <CommentCardConent comment={comment} />
+      <CommentCardContent comment={comment} />
     </Card>
   );
 }
@@ -28,8 +28,8 @@ function CommentCardHeader({ comment }: CommentCardHeaderProps) {
   );
 }
 
-type CommentCardConentProps = Pick<CommentCardProps, "comment">;
+type CommentCardContentProps = Pick<CommentCardProps, "comment">;
 
-function CommentCardConent({ comment }: CommentCardConentProps) {
+function CommentCardContent({ comment }: CommentCardContentProps) {
   return <p>{comment.content}</p>;
 }

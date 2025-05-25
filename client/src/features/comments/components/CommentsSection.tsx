@@ -1,5 +1,5 @@
 import { trpc } from "@/trpc";
-import { Experience } from "@meetup-app/server/database/schema";
+import { Experience } from "@meetup-app/server/features/experience/models";
 import CommentsList from "./CommentsList";
 
 type CommentsSectionProps = {
