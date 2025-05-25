@@ -6,6 +6,12 @@ type InfiniteScrollProps = {
   threshold?: number;
 };
 
+/**
+ * InfiniteScroll component that triggers loading more content when scrolling near the bottom.
+ *
+ * @param onLoadMore - Callback to load more content.
+ * @param threshold - Distance in pixels from bottom to trigger loading (default: 500)
+ */
 export function InfiniteScroll({
   children,
   onLoadMore,
