@@ -49,7 +49,7 @@ export function CommentCreateForm({ experienceId }: CommentCreateFormProps) {
     },
     onError: (error) => {
       toast({
-        title: "Failed to edit comment",
+        title: "Failed to add comment",
         description: error.message,
         variant: "destructive",
       });
