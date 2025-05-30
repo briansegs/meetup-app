@@ -1,4 +1,4 @@
-import { trpc } from "@/trpc";
+import { trpc } from "@/router";
 import { Experience } from "@meetup-app/server/features/experience/models";
 import CommentsList from "./CommentsList";
 import { CommentCreateForm } from "./CommentCreateForm";

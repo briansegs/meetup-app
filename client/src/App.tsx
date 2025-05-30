@@ -8,7 +8,7 @@ import { ExperienceList } from "./features/experiences/components/ExperienceList
 import Navbar from "./features/shared/components/Navbar";
 import { ThemeProvider } from "./features/shared/components/ThemeProvider";
 import { Toaster } from "./features/shared/components/ui/Toaster";
-import { trpc } from "./trpc";
+import { trpc } from "./router";
 import { InfiniteScroll } from "./features/shared/components/InfiniteScroll";
 
 export function App() {
