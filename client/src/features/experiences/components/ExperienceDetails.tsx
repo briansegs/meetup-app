@@ -75,6 +75,7 @@ function ExperienceDetailsMeta({ experience }: ExperienceDetailsMetaProps) {
           <a
             href={experience.url}
             target="_blank"
+            rel="noopener noreferrer"
             className="text-secondary-500 dark:text-primary-500 hover:underline"
           >
             Event Details
