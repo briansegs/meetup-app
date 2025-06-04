@@ -2,6 +2,7 @@ import { trpc } from "@/router";
 import { Experience } from "@meetup-app/server/features/experience/models";
 import CommentsList from "./CommentsList";
 import { CommentCreateForm } from "./CommentCreateForm";
+import { ErrorComponent } from "@/features/shared/components/ErrorComponent";
 
 type CommentsSectionProps = {
   experienceId: Experience["id"];
@@ -20,7 +21,7 @@ export function CommentsSection({
   );
 
   if (commentsQuery.error) {
-    return <div>Something went wrong</div>;
+    return <ErrorComponent />;
   }
 
   return (

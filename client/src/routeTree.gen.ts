@@ -12,7 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as ExperiencesExperienceIdIndexImport } from './routes/experiences/$experienceId/index'
+import { Route as ExperiencesExperienceIdIndexImpo./routes/experiences/$experienceId/indexces/$experienceId/index'
 
 // Create/Update Routes
 
