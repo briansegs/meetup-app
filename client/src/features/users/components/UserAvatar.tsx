@@ -6,7 +6,7 @@ import {
 import { cn } from "@/lib/utils/cn";
 import { User } from "@meetup-app/server/database/schema";
 
-type UserAvaterProps = {
+type UserAvatarProps = {
   user: User;
   showName?: boolean;
   nameClassName?: string;
@@ -18,7 +18,7 @@ export function UserAvatar({
   showName = true,
   nameClassName,
   className,
-}: UserAvaterProps) {
+}: UserAvatarProps) {
   return (
     <div className={cn("flex items-center gap-2")}>
       <Avatar className={className}>
