@@ -37,9 +37,11 @@ function SearchPage() {
             experiencesQuery.data?.pages.flatMap((page) => page.experiences) ??
             []
           }
-          isLoading={experiencesQuery.isLoading || experiencesQuery.isLoading}
+          isLoading={
+            experiencesQuery.isLoading || experiencesQuery.isFetchingNextPage
+          }
           noExperiencesMessage={
-            !!search.q ? "No experinces found" : "Search to find experiences"
+            !!search.q ? "No experiences found" : "Search to find experiences"
           }
         />
       </InfiniteScroll>
