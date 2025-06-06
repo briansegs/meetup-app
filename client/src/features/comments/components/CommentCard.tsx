@@ -77,6 +77,7 @@ function CommentCardButtons({
           experienceId: comment.experienceId,
         }),
         utils.experiences.feed.invalidate(),
+        utils.experiences.byId.invalidate({ id: comment.experienceId }),
       ]);
 
       setIsDeleteDialogOpen(false);

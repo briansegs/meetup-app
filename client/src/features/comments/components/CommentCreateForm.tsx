@@ -39,6 +39,7 @@ export function CommentCreateForm({ experienceId }: CommentCreateFormProps) {
           experienceId,
         }),
         utils.experiences.feed.invalidate(),
+        utils.experiences.byId.invalidate({ id: experienceId }),
       ]);
 
       form.reset();
