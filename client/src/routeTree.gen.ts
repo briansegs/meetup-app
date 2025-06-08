@@ -11,7 +11,9 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SettingsImport } from './routes/settings'
 import { Route as SearchImport } from './routes/search'
+import { Route as RegisterImport } from './routes/register'
 import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as UsersUserIdImport } from './routes/users/$userId'
@@ -19,9 +21,21 @@ import { Route as ExperiencesExperienceIdIndexImport } from './routes/experience
 
 // Create/Update Routes
 
+const SettingsRoute = SettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const SearchRoute = SearchImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RegisterRoute = RegisterImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -68,11 +82,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterImport
+      parentRoute: typeof rootRoute
+    }
     '/search': {
       id: '/search'
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsImport
       parentRoute: typeof rootRoute
     }
     '/users/$userId': {
@@ -97,7 +125,9 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/experiences/$experienceId': typeof ExperiencesExperienceIdIndexRoute
 }
@@ -105,7 +135,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/experiences/$experienceId': typeof ExperiencesExperienceIdIndexRoute
 }
@@ -114,7 +146,9 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/experiences/$experienceId/': typeof ExperiencesExperienceIdIndexRoute
 }
@@ -124,21 +158,27 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/register'
     | '/search'
+    | '/settings'
     | '/users/$userId'
     | '/experiences/$experienceId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
+    | '/register'
     | '/search'
+    | '/settings'
     | '/users/$userId'
     | '/experiences/$experienceId'
   id:
     | '__root__'
     | '/'
     | '/login'
+    | '/register'
     | '/search'
+    | '/settings'
     | '/users/$userId'
     | '/experiences/$experienceId/'
   fileRoutesById: FileRoutesById
@@ -147,7 +187,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
   SearchRoute: typeof SearchRoute
+  SettingsRoute: typeof SettingsRoute
   UsersUserIdRoute: typeof UsersUserIdRoute
   ExperiencesExperienceIdIndexRoute: typeof ExperiencesExperienceIdIndexRoute
 }
@@ -155,7 +197,9 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
   SearchRoute: SearchRoute,
+  SettingsRoute: SettingsRoute,
   UsersUserIdRoute: UsersUserIdRoute,
   ExperiencesExperienceIdIndexRoute: ExperiencesExperienceIdIndexRoute,
 }
@@ -172,7 +216,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/login",
+        "/register",
         "/search",
+        "/settings",
         "/users/$userId",
         "/experiences/$experienceId/"
       ]
@@ -183,8 +229,14 @@ export const routeTree = rootRoute
     "/login": {
       "filePath": "login.tsx"
     },
+    "/register": {
+      "filePath": "register.tsx"
+    },
     "/search": {
       "filePath": "search.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.tsx"
     },
     "/users/$userId": {
       "filePath": "users/$userId.tsx"
