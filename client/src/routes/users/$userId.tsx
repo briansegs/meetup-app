@@ -1,8 +1,10 @@
+import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { ExperienceList } from "@/features/experiences/components/ExperienceList";
 import { ErrorComponent } from "@/features/shared/components/ErrorComponent";
 import { InfiniteScroll } from "@/features/shared/components/InfiniteScroll";
 import Card from "@/features/shared/components/ui/Card";
 import { UserAvatar } from "@/features/users/components/UserAvatar";
+import { UserEditDialog } from "@/features/users/components/UserEditDialog";
 import { UserForDetails } from "@/features/users/types";
 import { isTRPCClientError, trpc } from "@/router";
 import { createFileRoute, notFound } from "@tanstack/react-router";
@@ -51,10 +53,13 @@ function UserPage() {
     <main className="space-y-4">
       <Card className="flex flex-col items-center gap-4 px-0">
         <UserAvatar user={user} showName={false} className="h-24 w-24" />
+
         <h1 className="text-3xl font-bold">{user.name}</h1>
         {user.bio && (
           <p className="text-neutral-600 dark:text-neutral-400">{user.bio}</p>
         )}
+
+        <UserProfileButton user={user} />
       </Card>
 
       <UserProfileHostStats user={user} />
@@ -89,4 +94,19 @@ function UserProfileHostStats({ user }: UserProfileHostStatsProps) {
       </div>
     </Card>
   );
+}
+
+type UserProfileButtonProps = {
+  user: UserForDetails;
+};
+
+function UserProfileButton({ user }: UserProfileButtonProps) {
+  const { currentUser } = useCurrentUser();
+  const isCurrentUser = currentUser?.id === user.id;
+
+  if (isCurrentUser) {
+    return <UserEditDialog user={user} />;
+  }
+
+  return null;
 }
