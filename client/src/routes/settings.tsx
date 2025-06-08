@@ -1,8 +1,16 @@
+import { ChangeEmailDialog } from "@/features/auth/components/ChangeEmailDialog";
+import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { Button } from "@/features/shared/components/ui/Button";
 import Card from "@/features/shared/components/ui/Card";
 import { useToast } from "@/features/shared/hooks/useToast";
 import { router, trpc } from "@/router";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { ReactNode } from "react";
+
+type SettingsData = {
+  label: string | undefined;
+  component: ReactNode;
+};
 
 export const Route = createFileRoute("/settings")({
   component: SettingsPage,
@@ -18,6 +26,7 @@ export const Route = createFileRoute("/settings")({
 function SettingsPage() {
   const utils = trpc.useUtils();
   const { toast } = useToast();
+  const { currentUser } = useCurrentUser();
 
   const logoutMutation = trpc.auth.logout.useMutation({
     onSuccess: async () => {
@@ -39,7 +48,11 @@ function SettingsPage() {
     },
   });
 
-  const settings = [
+  const settings: SettingsData[] = [
+    {
+      label: currentUser?.email,
+      component: <ChangeEmailDialog />,
+    },
     {
       label: "Sign out of your account",
       component: (
