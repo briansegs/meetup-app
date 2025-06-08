@@ -27,7 +27,7 @@ import { z } from "zod";
 type ChangeEmailFormData = z.infer<typeof changeEmailSchema>;
 
 export function ChangeEmailDialog() {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const { toast } = useToast();
   const utils = trpc.useUtils();
@@ -46,7 +46,7 @@ export function ChangeEmailDialog() {
 
       form.reset();
 
-      setisOpen(false);
+      setIsOpen(false);
 
       toast({
         title: "Email changed",
@@ -67,7 +67,7 @@ export function ChangeEmailDialog() {
   });
 
   return (
-    <Dialog open={isOpen} onOpenChange={setisOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button>Update Email</Button>
       </DialogTrigger>
