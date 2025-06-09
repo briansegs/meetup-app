@@ -1,7 +1,11 @@
-import { Comment, User } from "@meetup-app/server/database/schema";
+import { Comment, Experience, User } from "@meetup-app/server/database/schema";
 
 type CommentWithUser = Comment & {
   user: User;
 };
 
-export type CommentForList = CommentWithUser;
+type CommentWithExperience = Comment & {
+  experience: Experience;
+};
+
+export type CommentForList = CommentWithUser & CommentWithExperience;
