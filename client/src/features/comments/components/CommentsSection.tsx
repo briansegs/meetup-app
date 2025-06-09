@@ -3,6 +3,7 @@ import { Experience } from "@meetup-app/server/features/experience/models";
 import CommentsList from "./CommentsList";
 import { CommentCreateForm } from "./CommentCreateForm";
 import { ErrorComponent } from "@/features/shared/components/ErrorComponent";
+import Card from "@/features/shared/components/ui/Card";
 
 type CommentsSectionProps = {
   experienceId: Experience["id"];
@@ -28,7 +29,9 @@ export function CommentsSection({
     <div className="space-y-4">
       <h3 className="font-semibold">Comments ({commentsCount})</h3>
 
-      <CommentCreateForm experienceId={experienceId} />
+      <Card>
+        <CommentCreateForm experienceId={experienceId} />
+      </Card>
 
       <CommentsList
         comments={commentsQuery.data ?? []}
