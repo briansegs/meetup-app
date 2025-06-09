@@ -99,7 +99,7 @@ function CommentCardButtons({
   });
 
   const isCommentOwner = currentUser?.id === comment.userId;
-  const isExperienceOwner = currentUser?.id === comment.experience.id;
+  const isExperienceOwner = currentUser?.id === comment.experience.userId;
 
   if (!isCommentOwner && !isExperienceOwner) {
     return null;
