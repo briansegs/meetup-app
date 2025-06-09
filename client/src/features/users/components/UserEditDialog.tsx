@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { User } from "@meetup-app/server/database/schema";
 import { TextArea } from "@/features/shared/components/ui/TextArea";
+import FileInput from "@/features/shared/components/ui/FileInput";
 
 type UserFormData = z.infer<typeof userEditSchema>;
 
@@ -115,6 +116,25 @@ export function UserEditDialog({ user }: UserEditDialogProps) {
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
                     <TextArea {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="photo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image</FormLabel>
+                  <FormControl>
+                    <FileInput
+                      accept="image/*"
+                      onChange={(event) => {
+                        field.onChange(event.target?.files?.[0]);
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
