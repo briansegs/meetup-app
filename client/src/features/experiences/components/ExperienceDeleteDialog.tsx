@@ -42,7 +42,7 @@ export function ExperienceDeleteDialog({
           <DialogTitle>Delete Experience</DialogTitle>
         </DialogHeader>
         <p className="text-neutral-600 dark:text-neutral-400">
-          Are you sure you wanr to delete this experience? This action cannot be
+          Are you sure you want to delete this experience? This action cannot be
           undone.
         </p>
         <DialogFooter>
