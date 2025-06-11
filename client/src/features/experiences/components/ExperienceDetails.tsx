@@ -6,6 +6,7 @@ import { Button } from "@/features/shared/components/ui/Button";
 import Link from "@/features/shared/components/ui/Link";
 import { ExperienceDeleteDialog } from "./ExperienceDeleteDialog";
 import { router } from "@/router";
+import { ExperienceAttendButton } from "./ExperienceAttendButton";
 
 type ExperienceDetailsProps = {
   experience: ExperienceForDetails;
@@ -106,6 +107,15 @@ function ExperienceDetailsActionButtons({
 
   if (isPostOwner) {
     return <ExperienceCardOwnerButtons experience={experience} />;
+  }
+
+  if (currentUser) {
+    return (
+      <ExperienceAttendButton
+        experienceId={experience.id}
+        isAttending={experience.isAttending}
+      />
+    );
   }
 
   return null;
