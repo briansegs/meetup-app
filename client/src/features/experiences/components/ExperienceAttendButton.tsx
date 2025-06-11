@@ -22,6 +22,7 @@ export function ExperienceAttendButton({
 
   return (
     <Button
+      aria-label="Toggle attendance"
       variant={isAttending ? "outline" : "default"}
       onClick={() => {
         if (isAttending) {
@@ -30,7 +31,7 @@ export function ExperienceAttendButton({
           attendMutation.mutate({ id: experienceId });
         }
       }}
-      disabled={attendMutation.isPending}
+      disabled={attendMutation.isPending || unattendMutation.isPending}
     >
       {isAttending ? "Not Going" : "Going"}
     </Button>

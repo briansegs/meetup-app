@@ -309,7 +309,7 @@ export function useExperienceMutations(
       }
 
       toast({
-        title: "Failed to attend experience",
+        title: "Failed to unattend experience",
         description: error.message,
         variant: "destructive",
       });
