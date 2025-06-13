@@ -1,9 +1,9 @@
 import Spinner from "@/features/shared/components/ui/Spinner";
-import { UserWithUserContext } from "../types";
+import { UserForList, UserWithUserContext } from "../types";
 import { UserCard } from "./UserCard";
 
 type UserListProps = {
-  users: UserWithUserContext[];
+  users: UserForList[];
   isLoading?: boolean;
   rightComponent?: (user: UserWithUserContext) => React.ReactNode;
 };
