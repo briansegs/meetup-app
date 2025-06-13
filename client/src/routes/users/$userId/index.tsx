@@ -6,6 +6,7 @@ import Card from "@/features/shared/components/ui/Card";
 import Link from "@/features/shared/components/ui/Link";
 import { UserAvatar } from "@/features/users/components/UserAvatar";
 import { UserEditDialog } from "@/features/users/components/UserEditDialog";
+import { UserFollowButton } from "@/features/users/components/UserFollowButton";
 import { UserForDetails } from "@/features/users/types";
 import { isTRPCClientError, trpc } from "@/router";
 import { createFileRoute, notFound } from "@tanstack/react-router";
@@ -153,9 +154,9 @@ function UserProfileButton({ user }: UserProfileButtonProps) {
   const { currentUser } = useCurrentUser();
   const isCurrentUser = currentUser?.id === user.id;
 
-  if (isCurrentUser) {
-    return <UserEditDialog user={user} />;
-  }
-
-  return null;
+  return isCurrentUser ? (
+    <UserEditDialog user={user} />
+  ) : (
+    <UserFollowButton targetUserId={user.id} isFollowing={user.isFollowing} />
+  );
 }

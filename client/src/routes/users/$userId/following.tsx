@@ -1,4 +1,5 @@
 import { InfiniteScroll } from "@/features/shared/components/InfiniteScroll";
+import { UserFollowButton } from "@/features/users/components/UserFollowButton";
 import { UserList } from "@/features/users/components/UserList";
 import { isTRPCClientError, trpc } from "@/router";
 import { createFileRoute, notFound } from "@tanstack/react-router";
@@ -37,16 +38,22 @@ function userFollowingPage() {
       },
     );
 
-  const totalfollowing = pages[0].followingCount;
+  const totalFollowing = pages[0].followingCount;
 
   return (
     <main className="space-y-4">
-      <h1 className="text-2xl font-bold">following ({totalfollowing})</h1>
+      <h1 className="text-2xl font-bold">Following ({totalFollowing})</h1>
 
       <InfiniteScroll onLoadMore={followingQuery.fetchNextPage}>
         <UserList
           users={pages.flatMap((page) => page.items)}
           isLoading={followingQuery.isFetchingNextPage}
+          rightComponent={(user) => (
+            <UserFollowButton
+              targetUserId={user.id}
+              isFollowing={user.isFollowing}
+            />
+          )}
         />
       </InfiniteScroll>
     </main>
