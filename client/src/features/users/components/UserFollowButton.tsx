@@ -313,7 +313,7 @@ export function UserFollowButton({
       }
 
       toast({
-        title: "Failed to follow user",
+        title: "Failed to follow or unfollow user",
         description: error.message,
         variant: "destructive",
       });
