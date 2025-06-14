@@ -1,16 +1,13 @@
-import Spinner from "@/features/shared/components/ui/Spinner";
 import { CommentForList } from "../types";
 import { CommentCard } from "./CommentCard";
 
 type CommentsListProps = {
   comments: CommentForList[];
-  isLoading: boolean;
   noCommentsMessage?: string;
 };
 
 export default function CommentsList({
   comments,
-  isLoading,
   noCommentsMessage = "No comments yet",
 }: CommentsListProps) {
   return (
@@ -18,12 +15,8 @@ export default function CommentsList({
       {comments.map((comment) => (
         <CommentCard key={comment.id} comment={comment} />
       ))}
-      {isLoading && (
-        <div className="flex justify-center">
-          <Spinner />
-        </div>
-      )}
-      {!isLoading && comments.length === 0 && (
+
+      {comments.length === 0 && (
         <div className="flex justify-center">{noCommentsMessage}</div>
       )}
     </div>
