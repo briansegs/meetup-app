@@ -1,5 +1,5 @@
 import Card from "@/features/shared/components/ui/Card";
-import { CommentForList } from "../types";
+import { CommentForList, CommentOptimistic } from "../types";
 import { useState } from "react";
 import { CommentEditForm } from "./CommentEditForm";
 import { Button } from "@/features/shared/components/ui/Button";
@@ -74,22 +74,71 @@ function CommentCardButtons({
   const { currentUser } = useCurrentUser();
 
   const deleteMutation = trpc.comments.delete.useMutation({
-    onSuccess: async () => {
-      await Promise.all([
-        utils.comments.byExperienceId.invalidate({
-          experienceId: comment.experienceId,
-        }),
-        utils.experiences.feed.invalidate(),
-        utils.experiences.byId.invalidate({ id: comment.experienceId }),
-      ]);
-
+    onMutate: async ({ id }) => {
       setIsDeleteDialogOpen(false);
 
-      toast({
-        title: "Comment deleted successfully",
+      await Promise.all([
+        utils.comments.byExperienceId.cancel({
+          experienceId: comment.experienceId,
+        }),
+        utils.experiences.byId.cancel({ id: comment.experienceId }),
+      ]);
+
+      const previousData = {
+        byExperienceId: utils.comments.byExperienceId.getData({
+          experienceId: comment.experienceId,
+        }),
+        experienceById: utils.experiences.byId.getData({
+          id: comment.experienceId,
+        }),
+      };
+
+      utils.comments.byExperienceId.setData(
+        { experienceId: comment.experienceId },
+        (oldData) => {
+          if (!oldData) {
+            return;
+          }
+
+          return oldData.filter((c) => c.id != id);
+        },
+      );
+
+      utils.experiences.byId.setData(
+        { id: comment.experienceId },
+        (oldData) => {
+          if (!oldData) {
+            return;
+          }
+
+          return {
+            ...oldData,
+            commentsCount: Math.max(0, oldData.commentsCount - 1),
+          };
+        },
+      );
+
+      const { dismiss } = toast({
+        title: "Comment deleted",
+        description: "Your comment has been deleted",
       });
+
+      return { dismiss, previousData };
     },
-    onError: (error) => {
+
+    onError: (error, _, context) => {
+      context?.dismiss?.();
+
+      utils.comments.byExperienceId.setData(
+        { experienceId: comment.experienceId },
+        context?.previousData.byExperienceId,
+      );
+
+      utils.experiences.byId.setData(
+        { id: comment.experienceId },
+        context?.previousData.experienceById,
+      );
+
       toast({
         title: "Failed to delete comment",
         description: error.message,
@@ -108,7 +157,11 @@ function CommentCardButtons({
   return (
     <div className="flex gap-4">
       {isCommentOwner && (
-        <Button variant="link" onClick={() => setIsEditing(true)}>
+        <Button
+          variant="link"
+          onClick={() => setIsEditing(true)}
+          disabled={(comment as CommentOptimistic).optimistic}
+        >
           Edit
         </Button>
       )}
@@ -116,7 +169,12 @@ function CommentCardButtons({
       {(isCommentOwner || isExperienceOwner) && (
         <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="destructive-link">Delete</Button>
+            <Button
+              variant="destructive-link"
+              disabled={(comment as CommentOptimistic).optimistic}
+            >
+              Delete
+            </Button>
           </DialogTrigger>
 
           <DialogContent>
