@@ -8,6 +8,7 @@ import { ExperienceDeleteDialog } from "./ExperienceDeleteDialog";
 import { router } from "@/router";
 import { ExperienceAttendButton } from "./ExperienceAttendButton";
 import { UserAvatarList } from "@/features/users/components/UserAvatarList";
+import { ExperienceFavoriteButton } from "./ExperienceFavoriteButton";
 
 type ExperienceDetailsProps = {
   experience: ExperienceForDetails;
@@ -156,10 +157,18 @@ function ExperienceDetailsActionButtons({
 
   if (currentUser) {
     return (
-      <ExperienceAttendButton
-        experienceId={experience.id}
-        isAttending={experience.isAttending}
-      />
+      <div className="flex items-center gap-4">
+        <ExperienceAttendButton
+          experienceId={experience.id}
+          isAttending={experience.isAttending}
+        />
+
+        <ExperienceFavoriteButton
+          experienceId={experience.id}
+          isFavorited={experience.isFavorited}
+          favoritesCount={experience.favoritesCount}
+        />
+      </div>
     );
   }
 
