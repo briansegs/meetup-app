@@ -441,7 +441,7 @@ export function useExperienceMutations(
           pages: oldData.pages.map((page) => ({
             ...page,
             experiences: page.experiences.map((e) =>
-              e.id == id ? updateExperience(e) : e,
+              e.id === id ? updateExperience(e) : e,
             ),
           })),
         };
@@ -574,7 +574,7 @@ export function useExperienceMutations(
           pages: oldData.pages.map((page) => ({
             ...page,
             experiences: page.experiences.map((e) =>
-              e.id == id ? updateExperience(e) : e,
+              e.id === id ? updateExperience(e) : e,
             ),
           })),
         };
