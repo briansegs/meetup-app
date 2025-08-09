@@ -1,4 +1,4 @@
-import { Bell, Home, Search, Settings, User } from "lucide-react";
+import { Bell, Heart, Home, Search, Settings, User } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "./ui/Link";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
@@ -38,6 +38,18 @@ export default function Navigation() {
         <Search className="h-6 w-6" />
         Search
       </Link>
+
+      {currentUser && (
+        <Link
+          to="/favorites"
+          variant="ghost"
+          className={navLinkClassName}
+          activeProps={{ className: activeNavLinksClassName }}
+        >
+          <Heart className="h-6 w-6" />
+          Favorites
+        </Link>
+      )}
 
       {currentUser && (
         <Link
