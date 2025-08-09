@@ -509,7 +509,7 @@ export function useExperienceMutations(
       }
 
       toast({
-        title: "Failed to unattend experience",
+        title: "Failed to favorite experience",
         description: error.message,
         variant: "destructive",
       });
@@ -656,7 +656,7 @@ export function useExperienceMutations(
       }
 
       toast({
-        title: "Failed to unattend experience",
+        title: "Failed to unfavorite experience",
         description: error.message,
         variant: "destructive",
       });
